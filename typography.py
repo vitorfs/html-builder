@@ -23,6 +23,11 @@ class P(AbstractTag):
 
 class A(AbstractTag):
 
+    def __init__(self, text=''):
+        self._href = ''
+        self._target = ''
+        super(A, self).__init__(text)
+
     def href(self, value):
         self._href = value
         return self

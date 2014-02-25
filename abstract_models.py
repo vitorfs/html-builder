@@ -30,7 +30,15 @@ class AbstractTag(object):
         return self
 
     def text(self, value):
-        self._text = value
+        self._text = str(value)
+        return self
+
+    def append(self, value):
+        self._text = str(self._text) + str(value)
+        return self
+
+    def prepend(self, value):
+        self._text = str(value) + str(self._text)
         return self
 
     def _join_attrs(self):
@@ -44,6 +52,11 @@ class AbstractTag(object):
         return self._attrs
 
 class AbstractFormTag(AbstractTag):
+    
+    def __init__(self, text=''):
+        self._type = ''
+        self._value = ''
+        super(AbstractFormTag, self).__init__(text)
 
     def type(self, value):
         self._type = value
@@ -52,4 +65,6 @@ class AbstractFormTag(AbstractTag):
     def _join_attrs(self):
         if self._type:
             self._attrs['type'] = self._type
+        if self._value:
+            self.attrs['value'] = self._value
         return super(AbstractFormTag, self)._join_attrs()
